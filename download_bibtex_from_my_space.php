@@ -43,7 +43,7 @@
             $bibtex .= loadURL("http://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/PushToAction.do?pushToType=BibTeXPushTo&fromBasket=true&" . $fields_string, $fields);
         }
 
-        $name = "periodicos_capes_Internet_of_Things_and_Medical.bib";
+        $name = "periodicos_capes_Internet_of_Things_and_Healthcare.bib";
         file_put_contents($name,$bibtex);
         echo "<pre>"; var_dump($bibtex);
         
