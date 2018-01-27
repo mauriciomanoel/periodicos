@@ -2,8 +2,7 @@
     set_time_limit(0);
     include('functions.php');
 
-    
-    $url = 'http://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/basket.do?fn=display&fromUserArea=true&vid=CAPES_V1&fromPreferences=false&fromLink=gotoeShelfUI#&unzero=true';
+    $url = 'http://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/basket.do?fn=display&vid=CAPES_V1&folderId=1159158862';
     $html = loadURL($url);
 
     $dom = new DOMDocument;
