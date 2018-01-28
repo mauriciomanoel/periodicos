@@ -22,10 +22,10 @@
                 }
                 if ($node->getAttribute( 'class' ) == "gs_ri") {
                     $childs = $node->childNodes;
-                    $nodeTitle = $childs->item(1);
+                    $nodeTitle = $childs->item(0);
                     if ($nodeTitle->getElementsByTagName('a')->length > 0) {
                         $link_article = trim($nodeTitle->getElementsByTagName('a')->item(0)->getAttribute( 'href' ));
-                    }
+                    }                    
                     $title_article = trim($nodeTitle->textContent);
                 }                
             }
