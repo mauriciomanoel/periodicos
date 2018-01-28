@@ -4,11 +4,12 @@
     include('functions.php');
     
     function save_data_key($dom, $file) {
-        $content = "";
-        $data_cid = "";
-        $link_pdf = "";
-        $link_article = "";
-        $title_article = "";  
+        $content        = "";
+        $data_cid       = "";
+        $link_pdf       = "";
+        $link_article   = "";
+        $title_article  = "";
+        $cited_by       = "";
         foreach ($dom->getElementsByTagName('div') as $node) {
 
             if ($node->hasAttribute( 'data-cid' )) {
@@ -21,20 +22,50 @@
                     // echo "<pre>"; var_dump($child->getAttribute( 'href' ));
                 }
                 if ($node->getAttribute( 'class' ) == "gs_ri") {
-                    $childs = $node->childNodes;
-                    $nodeTitle = $childs->item(0);
+                    $childsDiv = $node->childNodes;
+                    $nodeTitle = $childsDiv->item(0);
                     if ($nodeTitle->getElementsByTagName('a')->length > 0) {
                         $link_article = trim($nodeTitle->getElementsByTagName('a')->item(0)->getAttribute( 'href' ));
                     }                    
                     $title_article = trim($nodeTitle->textContent);
-                }                
+                    
+                    foreach($childsDiv as $child) {
+                        //  var_dump($child);
+                        $textContent = trim($child->textContent);
+                        if (!empty($textContent) && strpos($textContent, "Citado por") !== false) {
+                            preg_match('/\d+/', $textContent, $matches);
+                            $cited_by = $matches[0];
+                            break;
+                        }
+                        // if ($child->getAttribute( 'class' ) == "gs_fl") {
+                        //     $childsA = $node->childNodes;
+                        //     $nodeTitle = $childsA->item(5);
+                        //     if (strpos(trim($nodeTitle->textContent), "Citado por") !== false) {
+                        //         $cited_by = trim(str_replace("Citado por","",trim($nodeTitle->textContent)));
+                        //         var_dump( $cited_by); exit;
+                        //     }
+
+                        // }
+                    }
+                }
+
+                // if ($node->getAttribute( 'class' ) == "gs_fl") {
+                //     $childs = $node->childNodes;
+                //     $nodeTitle = $childs->item(5);
+                //     if (strpos(trim($nodeTitle->textContent), "Citado por") !== false) {
+                //         $cited_by = trim(str_replace("Citado por","",trim($nodeTitle->textContent)));
+                //         var_dump( $cited_by);
+                //     } 
+                // }                
             }
-            if (!empty($data_cid) && !empty($title_article)) {
-                $content .= $data_cid . "|" . slug($title_article) . "|" . $title_article . "|" . $link_article . "|". $link_pdf . "\r\n";
+            if (!empty($data_cid) && !empty($title_article) && !empty($link_article)) {
+                // var_dump($cited_by); exit;
+                $content .= $data_cid . "|" . slug($title_article) . "|" . $title_article . "|" . $link_article . "|". $link_pdf . "|". $cited_by . "\r\n";
                 $data_cid = "";
                 $link_pdf = "";
                 $link_article = "";
-                $title_article = "";                
+                $title_article = "";
+                $cited_by = "";
             }
         }
         
