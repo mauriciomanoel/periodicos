@@ -59,18 +59,17 @@
     }
     function progress_google($url, $file) {
         
-        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
+        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_MACOS);
         libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
         $dom = new DOMDocument('1.0', 'UTF-8');
-        // @$dom->loadHTML($html);
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = true;
-        save_data_key($dom, $file); // save data local
+        save_data_key($dom, $file); // save data local 
         foreach ($dom->getElementsByTagName('div') as $node) {
             if ($node->hasAttribute( 'data-cid' )) {
                 $data_cid = $node->getAttribute( 'data-cid' );
                 $url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
-                $returno = loadURL($url_action, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
+                $returno = loadURL($url_action, COOKIE_GOOGLE, USER_AGENT_MACOS);
                 echo "<pre>"; var_dump($returno);
                 sleep(rand(5,8));
             }
@@ -85,24 +84,24 @@
     
     // exit;
 
-    $page = 710; 
-    $file = "google_scholar_Internet_of_Things_Health.csv";
+    $page = 210; 
+    $file = "google_scholar_health_IoT.csv";
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(6, 8));
-    $page = 720; // 
+    $page = 220; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(8, 12));
-    $page = 730; // 
+    $page = 230; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(9, 11));
-    $page = 740; // 
+    $page = 240; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(10, 12));
-    $page = 750; // 
+    $page = 250; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file); 
 ?>
