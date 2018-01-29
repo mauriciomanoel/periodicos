@@ -69,16 +69,13 @@
         foreach ($dom->getElementsByTagName('div') as $node) {
             if ($node->hasAttribute( 'data-cid' )) {
                 $data_cid = $node->getAttribute( 'data-cid' );
-                $url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=AMstHGQAAAAAWm7Akp7CS8tPX2LZeIp3OCG_YbL6uQqI&continue=/scholar?q=%22Internet+of+Things%3B+Medical%22&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
+                $url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
                 $returno = loadURL($url_action, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
                 echo "<pre>"; var_dump($returno);
-                sleep(0.5);
+                sleep(rand(3,5));
             }
         }       
     }
-
-    $page = 0;
-    $file = "google_scholar_Internet_of_Things_Medical.csv";
 
     // libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
     // $dom = new DOMDocument('1.0', 'UTF-8');
@@ -86,7 +83,14 @@
     // $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
     // save_data_key($dom, $file);
     
-    exit;
-    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=%22Internet+of+Things%3B+Medical%22&hl=pt-BR&as_sdt=0,5";
+    // exit;
+
+    $page = 640; // 650
+    $file = "google_scholar_Internet_of_Things_Healthcare.csv";
+    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
+    progress_google($url, $file);
+    sleep(10);
+    $page = 650; // 650
+    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
 ?>
