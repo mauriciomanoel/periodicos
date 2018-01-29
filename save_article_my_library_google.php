@@ -84,24 +84,24 @@
     
     // exit;
 
-    $page = 210; 
+    $page = 260; 
     $file = "google_scholar_health_IoT.csv";
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(6, 8));
-    $page = 220; // 
+    $page = 270; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(8, 12));
-    $page = 230; // 
+    $page = 280; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(9, 11));
-    $page = 240; // 
+    $page = 290; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(10, 12));
-    $page = 250; // 
+    $page = 300; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file); 
 ?>
