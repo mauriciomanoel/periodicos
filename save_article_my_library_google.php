@@ -72,7 +72,7 @@
                 $url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
                 $returno = loadURL($url_action, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
                 echo "<pre>"; var_dump($returno);
-                sleep(rand(3,5));
+                sleep(rand(5,8));
             }
         }       
     }
@@ -85,12 +85,24 @@
     
     // exit;
 
-    $page = 640; // 650
-    $file = "google_scholar_Internet_of_Things_Healthcare.csv";
+    $page = 710; 
+    $file = "google_scholar_Internet_of_Things_Health.csv";
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
-    sleep(10);
-    $page = 650; // 650
+    sleep(rand(6, 8));
+    $page = 720; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
+    sleep(rand(8, 12));
+    $page = 730; // 
+    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
+    progress_google($url, $file);
+    sleep(rand(9, 11));
+    $page = 740; // 
+    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
+    progress_google($url, $file);
+    sleep(rand(10, 12));
+    $page = 750; // 
+    $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
+    progress_google($url, $file); 
 ?>
