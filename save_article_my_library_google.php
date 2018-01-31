@@ -40,6 +40,9 @@
                 }
             }
             if (!empty($data_cid) && !empty($title_article) && !empty($link_article)) {
+                $replaces = array("[PDF][PDF]", "[LIVRO][B]", "[CITAÇÃO][C]", "[HTML][HTML]");
+                $title_article = trim(str_replace($replaces, "", $title_article));
+                // var_dump(mb_detect_encoding($title_article));
                 $content .= $data_cid . "|" . slug($title_article) . "|" . $title_article . "|" . $link_article . "|". $link_pdf . "|". $cited_by . "\r\n";
                 $data_cid = "";
                 $link_pdf = "";
@@ -68,7 +71,7 @@
 
         $parameters["host"] = "scholar.googleusercontent.com";
         $parameters["referer"] = $url;
-        
+
         foreach ($dom->getElementsByTagName('div') as $node) {
             if ($node->hasAttribute( 'id' )) {
                 if ($node->getAttribute( 'id' ) == "gs_citi") {
@@ -79,7 +82,7 @@
                 }
             }
         }
-        var_dump($content);
+        echo $content . "<br>";
         if (!empty($content)) {
             $oldContent = @file_get_contents($file);
             $newContent = $oldContent . $content;
@@ -87,56 +90,47 @@
         }    
     }
 
-    function progress_google($url, $file) {        
-        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
+    function progress_google($url, $file) {
+        echo "<br>" . $url . "<br>";
+        $parameters["referer"]  = $url;
+        $parameters["host"]     = "scholar.google.com.br";
+        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS, array(), $parameters["referer"]);
         libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = true;
         save_data_key($dom, $file . ".csv"); // save data local 
-        foreach ($dom->getElementsByTagName('div') as $node) {
+        foreach ($dom->getElementsByTagName('div') as $node) {            
             if ($node->hasAttribute( 'data-cid' )) {
-                $data_cid = $node->getAttribute( 'data-cid' );
-                //$url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
-                //$url_action = "https://scholar.googleusercontent.com/scholar.bib?q=info:" . $data_cid . ":scholar.google.com/&output=citation&scisig=" . XSRF_GOOGLE . "&scisf=4&ct=citation&cd=-1&hl=pt-BR";
-                $url_action = "https://scholar.google.com.br/scholar?q=info:" . $data_cid . ":scholar.google.com/&output=cite&scirp=0&hl=pt-BR";
-                save_data_bibtex($url_action, $file . ".bib");
-                //echo "<pre>"; var_dump($retorno); exit;
-                exit;
-                sleep(rand(5,8));
+                while (@ ob_end_flush()); // end all output buffers if any
+                    $data_cid = $node->getAttribute( 'data-cid' );
+                    $url_action = "https://scholar.google.com.br/scholar?q=info:" . $data_cid . ":scholar.google.com/&output=cite&scirp=0&hl=pt-BR";
+                    save_data_bibtex($url_action, $file . ".bib");
+                @ flush();
+                sleep(rand(7,13));
+
             }
         }       
     }
 
-    // libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
-    // $dom = new DOMDocument('1.0', 'UTF-8');
-    // $html = file_get_contents("google5.html");
-    // $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-    // save_data_key($dom, $file);
-
-    // $html = file_get_contents("bibtex_google.html");
-    // $file = "google_scholar_health_IoT.bib";
-    // save_data_bibtex($html, $file);
-
-    $page = 0; 
-    $file = "google_scholar_health_IoT2";
+    $file = "google_scholar_health_IoT";
+    $page = 10; 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
-    exit;
     sleep(rand(6, 8));
-    $page = 420; // 
+    $page = 20; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
-    progress_google($url, $file);
-    sleep(rand(8, 12));
-    $page = 430; // 
+    progress_google($url, $file); 
+    sleep(rand(7, 12));
+    $page = 30; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
-    progress_google($url, $file);
-    sleep(rand(9, 11));
-    $page = 440; // 
+    progress_google($url, $file); 
+    sleep(rand(6, 11));
+    $page = 40; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
-    progress_google($url, $file);
-    sleep(rand(10, 12));
-    $page = 450; // 
+    progress_google($url, $file); 
+    sleep(rand(5, 12));
+    $page = 50; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file); 
 ?>
