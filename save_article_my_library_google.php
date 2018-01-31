@@ -40,7 +40,6 @@
                 }
             }
             if (!empty($data_cid) && !empty($title_article) && !empty($link_article)) {
-                // var_dump($cited_by); exit;
                 $content .= $data_cid . "|" . slug($title_article) . "|" . $title_article . "|" . $link_article . "|". $link_pdf . "|". $cited_by . "\r\n";
                 $data_cid = "";
                 $link_pdf = "";
@@ -54,23 +53,56 @@
             $oldContent = @file_get_contents($file);
             $newContent = $oldContent . $content;
             file_put_contents($file, $newContent);
-        }
-    
+        }    
     }
-    function progress_google($url, $file) {
-        
-        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_MACOS);
+
+    function save_data_bibtex($url, $file) {
+        $parameters = array();
+        $content    = "";
+        $parameters["host"] = "scholar.google.com.br";        
+        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS, array(), $parameters);
         libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = true;
-        save_data_key($dom, $file); // save data local 
+
+        $parameters["host"] = "scholar.googleusercontent.com";
+        $parameters["referer"] = $url;
+        
+        foreach ($dom->getElementsByTagName('div') as $node) {
+            if ($node->hasAttribute( 'id' )) {
+                if ($node->getAttribute( 'id' ) == "gs_citi") {
+                    $child = $node->firstChild;
+                    $urlBibtex = trim($child->getAttribute( 'href' ));
+                    $content .=  loadURL($urlBibtex, COOKIE_GOOGLE, USER_AGENT_WINDOWS, array(), $parameters);
+                    break;
+                }
+            }
+        }
+        var_dump($content);
+        if (!empty($content)) {
+            $oldContent = @file_get_contents($file);
+            $newContent = $oldContent . $content;
+            file_put_contents($file, $newContent);
+        }    
+    }
+
+    function progress_google($url, $file) {        
+        $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS);
+        libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+        $dom->preserveWhiteSpace = true;
+        save_data_key($dom, $file . ".csv"); // save data local 
         foreach ($dom->getElementsByTagName('div') as $node) {
             if ($node->hasAttribute( 'data-cid' )) {
                 $data_cid = $node->getAttribute( 'data-cid' );
-                $url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
-                $returno = loadURL($url_action, COOKIE_GOOGLE, USER_AGENT_MACOS);
-                echo "<pre>"; var_dump($returno);
+                //$url_action = "https://scholar.google.com.br/citations?hl=pt-BR&xsrf=" . XSRF_GOOGLE . "&continue=/scholar?q=" . QUERY . "&hl=pt-BR&as_sdt=0,5&citilm=1&json=&update_op=library_add&info=" . $data_cid;
+                //$url_action = "https://scholar.googleusercontent.com/scholar.bib?q=info:" . $data_cid . ":scholar.google.com/&output=citation&scisig=" . XSRF_GOOGLE . "&scisf=4&ct=citation&cd=-1&hl=pt-BR";
+                $url_action = "https://scholar.google.com.br/scholar?q=info:" . $data_cid . ":scholar.google.com/&output=cite&scirp=0&hl=pt-BR";
+                save_data_bibtex($url_action, $file . ".bib");
+                //echo "<pre>"; var_dump($retorno); exit;
+                exit;
                 sleep(rand(5,8));
             }
         }       
@@ -81,27 +113,30 @@
     // $html = file_get_contents("google5.html");
     // $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
     // save_data_key($dom, $file);
-    
-    // exit;
 
-    $page = 260; 
-    $file = "google_scholar_health_IoT.csv";
+    // $html = file_get_contents("bibtex_google.html");
+    // $file = "google_scholar_health_IoT.bib";
+    // save_data_bibtex($html, $file);
+
+    $page = 0; 
+    $file = "google_scholar_health_IoT2";
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
+    exit;
     sleep(rand(6, 8));
-    $page = 270; // 
+    $page = 420; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(8, 12));
-    $page = 280; // 
+    $page = 430; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(9, 11));
-    $page = 290; // 
+    $page = 440; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file);
     sleep(rand(10, 12));
-    $page = 300; // 
+    $page = 450; // 
     $url = "https://scholar.google.com.br/scholar?start=" . $page . "&q=" . QUERY . "&hl=pt-BR&as_sdt=0,5";
     progress_google($url, $file); 
 ?>
