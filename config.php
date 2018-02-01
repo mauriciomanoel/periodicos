@@ -2,7 +2,7 @@
     define('COOKIE_CAPES', 'JSESSIONID=1D73B00AFC054C172808385BC4459553; sto-id-%3FSaaS-A_prod%3FPMTNA03.prod.primo.1701=HNHIBMAK; PRIMO_RT=');
     define('USER_AGENT_WINDOWS','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0');
     define('USER_AGENT_MACOS','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:57.0) Gecko/20100101 Firefox/57.0');
-    define('COOKIE_GOOGLE', 'NID=122=BGr1CSKMsXXRzIBUKcOrjHr4DJpzwrash6kxcl1TkAGgt9Oj7YLFkJ5rV2AhsjHDFA0vjNyum6S9ZF5g6eiVvdyjz1wk2toJ0B9o3t5NT8iXFNUFbYY_welXSaG88U81; GSP=A=QT2BPQ:CPTS=1517421513:LM=1517421513:S=GnDLbbB_KqN_Qy3o; GOOGLE_ABUSE_EXEMPTION=ID=2cf81bbc68d0f080:TM=1517419197:C=r:IP=150.161.49.96-:S=APGng0sqkM0_FzPCwlNE9XT0on2A2WdRGg; 1P_JAR=2018-1-31-17');
-    define('QUERY', '"health+IoT"');
+    define('COOKIE_GOOGLE', 'NID=122=J2o7mIFpm7JBZFpLCuOUyK27PgVWM66MwPnyafFLwStgfV1aM6YrzJ3XcOup0CtAA1vCWfCIHIT7jue86oBA4H6AvnR65KDR3BPXS8-huFwycgMOBEw7gzdU6XvAKB4d; GSP=LM=1517446581:S=TrkrKwCwO-p8sfud');
+    define('QUERY', '"Internet+of+Medical+Things"+OR+"Internet+of+healthcare+things"+OR+"Internet+of+M-health+Things"');
     define('XSRF_GOOGLE','AMstHGQAAAAAWnMRp0OEUK1-sGxeA7FK3mM_6CqbxAo8');
 ?>
