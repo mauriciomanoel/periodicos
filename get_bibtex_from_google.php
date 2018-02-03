@@ -114,13 +114,13 @@
     }
 
 
-    $file = "google_scholar_internet_of_things_healthcare";
+    $file = "google_scholar_internet_of_things_health";
         
-    // $page = 0;
+    // $page = 100;
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file);
-    // sleep(rand(6, 8));
-    
+    // // sleep(rand(6, 8));
+    // exit($url);
     // $page = 110;
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file);
@@ -133,28 +133,28 @@
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file); 
     // sleep(rand(6, 11));
-    // $page = 140; // 
-    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    // progress_google($url, $file); 
-    // sleep(rand(5, 12));
-    // $page = 150; 
-    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    // progress_google($url, $file);
+    $page = 140; // 
+    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    progress_google($url, $file); 
+    sleep(rand(5, 12));
+    $page = 150; 
+    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    progress_google($url, $file);
     
-    // sleep(15);
+    sleep(15);
     
-    // $page = 160; 
-    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    // progress_google($url, $file);
-    // sleep(rand(6, 8));
-    // $page = 170; // 
-    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    // progress_google($url, $file); 
-    // sleep(rand(7, 12));
-    // $page = 180; // 
-    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    // progress_google($url, $file); 
-    // sleep(rand(6, 11));
+    $page = 160; 
+    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    progress_google($url, $file);
+    sleep(rand(6, 8));
+    $page = 170; // 
+    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    progress_google($url, $file); 
+    sleep(rand(7, 12));
+    $page = 180; // 
+    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    progress_google($url, $file); 
+    sleep(rand(6, 11));
     $page = 190; // 
     $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     progress_google($url, $file); 
