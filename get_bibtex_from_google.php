@@ -95,6 +95,13 @@
         $parameters["referer"]  = $url;
         $parameters["host"]     = "scholar.google.com.br";
         $html = loadURL($url, COOKIE_GOOGLE, USER_AGENT_WINDOWS, array(), $parameters["referer"]);
+        
+        // Check Google Captcha
+        if ( strpos($html, "gs_captcha_cb()") !== false || strpos($html, "sending automated queries") !== false ) {
+            echo "Captha detected<br>";
+            echo $html; exit;
+        }
+        
         libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
@@ -120,48 +127,48 @@
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file);
     // // sleep(rand(6, 8));
-    // exit($url);
-    // $page = 110;
+    
+
+    // $page = 610;
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file);
     // sleep(rand(6, 8));
-    // $page = 120; // 
+    // $page = 620; // 
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file); 
     // sleep(rand(7, 12));
-    // $page = 130; // 
+    // $page = 630; // 
     // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     // progress_google($url, $file); 
     // sleep(rand(6, 11));
-    $page = 140; // 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file); 
-    sleep(rand(5, 12));
-    $page = 150; 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file);
+    // $page = 640; // 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file); 
+    // sleep(rand(5, 12));
+    // $page = 650; 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file);
     
-    sleep(15);
+    // sleep(25);
     
-    $page = 160; 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file);
-    sleep(rand(6, 8));
-    $page = 170; // 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file); 
-    sleep(rand(7, 12));
-    $page = 180; // 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file); 
-    sleep(rand(6, 11));
-    $page = 190; // 
-    $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
-    progress_google($url, $file); 
-    sleep(rand(5, 12));
-    $page = 200; // 
+    // $page = 660; 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file);
+    // sleep(rand(6, 8));
+    // $page = 670; // 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file); 
+    // sleep(rand(7, 12));
+    // $page = 680; // 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file); 
+    // sleep(rand(6, 11));
+    // $page = 690; // 
+    // $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
+    // progress_google($url, $file); 
+    // sleep(rand(5, 12)); exit;
+    $page = 700; // 
     $url = "https://scholar.google.com/scholar?&hl=en&as_sdt=1,5&&start=" . $page . "&q=" . QUERY;
     progress_google($url, $file);
 
-    
 ?>
