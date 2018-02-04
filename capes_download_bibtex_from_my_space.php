@@ -3,9 +3,12 @@
     include('config.php');
     include('functions.php');
     $total = 0;
-    $url = 'http://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/basket.do?fn=display&vid=CAPES&folderId=1176590190';
-    //$html = loadURL($url, COOKIE_CAPES, USER_AGENT);
-    $html = file_get_contents('capes.html');
+    $url = 'https://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/basket.do?fn=display&vid=CAPES_V1&folderId=1176590190';
+    $parameters["referer"]  = "https://rnp-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/basket.do?vid=CAPES_V1&fn=display&fromLink=gotoeShelfUI&fromUserArea=true&fromPreferences=false&dscnt=0&dstmp=1517781750187&fromLogin=true&fromLogin=true";
+    $parameters["host"]     = "rnp-primo.hosted.exlibrisgroup.com";
+    $html = loadURL($url, COOKIE_CAPES, USER_AGENT, array(), $parameters);
+    var_dump($html); exit;
+    //$html = file_get_contents('capes.html');
     libxml_use_internal_errors(true) && libxml_clear_errors(); // for html5
     $dom = new DOMDocument('1.0', 'UTF-8');
     $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));

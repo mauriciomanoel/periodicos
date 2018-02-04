@@ -22,6 +22,7 @@
         $header[] = "Connection: keep-alive";
         $header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
         $header[] = "Accept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3";
+        $header[] = "Upgrade-Insecure-Requests: 1";
         $header[] = "Pragma: ";
         $header[] = "Cookie: " . $cookie;
         if (!empty($parameters["host"])) {
